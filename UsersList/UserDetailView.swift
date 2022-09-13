@@ -17,26 +17,26 @@ struct RectangleDivider: View {
 }
 
 struct UserDetailView: View {
-    var user: User
+    var userEntity: UserEntity
     
     var body: some View {
         ScrollView {
             VStack {
-                Text(user.name)
+                Text(userEntity.name ?? "")
                     .font(.title)
-                Text(user.isActive ? "Active" : "Not Active")
+                Text(userEntity.isActive ? "Active" : "Not Active")
                     .font(.headline)
-                    .foregroundColor(user.isActive ? .green : .red)
-                Text("\(user.age) years old")
+                    .foregroundColor(userEntity.isActive ? .green : .red)
+                Text("\(userEntity.age) years old")
                 
                 VStack {
-                    Text("Company: \(user.company)")
-                    Text("Registered at \(user.registered?.formatted(date: .abbreviated, time: .omitted) ?? Date.now.formatted(date: .abbreviated, time: .omitted))")
+                    Text("Company: \(userEntity.company ?? "")")
+                    Text("Registered at \(userEntity.registered?.formatted(date: .abbreviated, time: .omitted) ?? Date.now.formatted(date: .abbreviated, time: .omitted))")
                 }
                 .padding(1)
                 
-                Text(user.email)
-                Text(user.address)
+                Text(userEntity.email ?? "")
+                Text(userEntity.address ?? "")
                 
             }
             .font(.subheadline.bold())
@@ -44,16 +44,16 @@ struct UserDetailView: View {
             VStack {
                 RectangleDivider()
                 
-                Text(user.about)
+                Text(userEntity.about ?? "")
                     .padding(.horizontal)
                 
                 RectangleDivider()
                 
-                TagsOrFriendsView("MY TAGS", user.tagsString)
+                TagsOrFriendsView("MY TAGS", userEntity.tags ?? "")
                 
                 RectangleDivider()
                 
-                TagsOrFriendsView("MY FRIENDS", user.friendsString)
+                TagsOrFriendsView("MY FRIENDS", userEntity.friendsString)
             }
             .multilineTextAlignment(.leading)
             

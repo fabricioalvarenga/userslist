@@ -23,26 +23,32 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                List(vm.users) { user in
-                    NavigationLink {
-                        UserDetailView(user: user)
-                    } label: {
-                        HStack {
-                            Text(user.name)
-                                .font(.headline)
-                            
-                            Spacer()
-                            
-                            Text(user.isActive ? "Active" : "Not Active")
-                                .font(.subheadline.bold())
-                                .foregroundColor(user.isActive ? .green : .red)
+                List {
+                    ForEach(vm.savedUsers) { userEntity in
+                        NavigationLink {
+                            UserDetailView(userEntity: userEntity)
+                        } label: {
+                            HStack {
+                                Text(userEntity.name ?? "")
+                                    .font(.headline)
+                                
+                                Spacer()
+                                
+                                Text(userEntity.isActive ? "Active" : "Not Active")
+                                    .font(.subheadline.bold())
+                                    .foregroundColor(userEntity.isActive ? .green : .red)
+                            }
                         }
                     }
+                    .onDelete(perform: vm.deleteUser)
                 }
                 .task {
                     await vm.loadData()
                 }
                 .navigationTitle("Users List")
+                
+                ProgressView()
+                    .isHidden(vm.downloaded)
             }
         }
     }
