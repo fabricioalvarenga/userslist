@@ -22,7 +22,7 @@ final class UsersViewModel: ObservableObject {
         let request = UserEntity.fetchRequest()
         
         do {
-            savedUsers = try manager.context.fetch(request).sorted { $0.name ?? "" < $1.name ?? "" }
+            savedUsers = try manager.context.fetch(request).sorted { $0.wrappedName < $1.wrappedName }
         } catch {
             print("Error fetching! \(error)")
         }
@@ -84,7 +84,7 @@ final class UsersViewModel: ObservableObject {
             }
 
         }
-        savedUsers  = savedUsers.sorted { $0.name ?? "" < $1.name ?? ""}
+        savedUsers  = savedUsers.sorted { $0.wrappedName < $1.wrappedName }
         manager.save()
     }
     

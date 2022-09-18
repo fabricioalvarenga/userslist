@@ -22,7 +22,7 @@ struct UserDetailView: View {
     var body: some View {
         ScrollView {
             VStack {
-                Text(userEntity.name ?? "")
+                Text(userEntity.wrappedName)
                     .font(.title)
                 Text(userEntity.isActive ? "Active" : "Not Active")
                     .font(.headline)
@@ -30,13 +30,13 @@ struct UserDetailView: View {
                 Text("\(userEntity.age) years old")
                 
                 VStack {
-                    Text("Company: \(userEntity.company ?? "")")
-                    Text("Registered at \(userEntity.registered?.formatted(date: .abbreviated, time: .omitted) ?? Date.now.formatted(date: .abbreviated, time: .omitted))")
+                    Text("Company: \(userEntity.wrappedCompany)")
+                    Text("Registered at \(userEntity.wrappedRegistered)")
                 }
                 .padding(1)
                 
-                Text(userEntity.email ?? "")
-                Text(userEntity.address ?? "")
+                Text(userEntity.wrappedEmail)
+                Text(userEntity.wrappedAddress)
                 
             }
             .font(.subheadline.bold())
@@ -44,16 +44,16 @@ struct UserDetailView: View {
             VStack {
                 RectangleDivider()
                 
-                Text(userEntity.about ?? "")
+                Text(userEntity.wrappedAbout)
                     .padding(.horizontal)
                 
                 RectangleDivider()
                 
-                TagsOrFriendsView("MY TAGS", userEntity.tags ?? "")
+                TagsOrFriendsView("MY TAGS", userEntity.wrappedTags)
                 
                 RectangleDivider()
                 
-                TagsOrFriendsView("MY FRIENDS", userEntity.friendsString)
+                TagsOrFriendsView("MY FRIENDS", userEntity.wrappedFriends)
             }
             .multilineTextAlignment(.leading)
             

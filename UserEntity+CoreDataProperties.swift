@@ -28,7 +28,15 @@ extension UserEntity {
     @NSManaged public var tags: String?
     @NSManaged public var friends: NSSet?
     
-    public var friendsString: String {
+    public var wrappedAbout: String { about ?? "" }
+    public var wrappedAddress: String { address ?? "Unknown Address" }
+    public var wrappedCompany: String { company ?? "Unknow Company" }
+    public var wrappedEmail: String { email ?? "Unknow Email" }
+    public var wrappedName: String { name ?? "Unknown Name" }
+    public var wrappedRegistered: String { Date.now.formatted(date: .abbreviated, time: .omitted) }
+    public var wrappedTags: String { tags ?? "" }
+    
+    public var wrappedFriends: String {
         let set = friends as? Set<FriendEntity> ?? []
         
         let friendsArray: [FriendEntity] = set.sorted { $0.wrappedName < $1.wrappedName }

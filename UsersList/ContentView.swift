@@ -29,7 +29,7 @@ struct ContentView: View {
                             UserDetailView(userEntity: userEntity)
                         } label: {
                             HStack {
-                                Text(userEntity.name ?? "")
+                                Text(userEntity.wrappedName)
                                     .font(.headline)
                                 
                                 Spacer()
